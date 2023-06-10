@@ -1,11 +1,11 @@
 import Carousel from "@/components/carousel"
 import ProductList from "@/components/productList"
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
 import {getCategory } from "@/app/store/category"
 import { getBanner } from "@/app/store"
 import CategoryCard from "@/components/categoryCard"
 import ProductCard from "@/components/productCard"
+import Footer from '@/components/footer'
 
 
 export default async function Home() {
@@ -17,7 +17,7 @@ export default async function Home() {
   const highlighted = resCH ? resCH.data : []
   return (
     <>
-    <main>
+    <main className="min-h-screen">
       <Navbar/>
     <div className="w-full flex flex-col items-center">
     <div className="w-full max-w-screen-lg">
@@ -62,8 +62,9 @@ export default async function Home() {
     <ProductList/>
     </div>
     </div>
-    <Footer/> 
     </main>
+    
+    <Footer/> 
     </>
   )
 }

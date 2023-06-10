@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <>
+    <div>
     <footer className="footer bottom-0 p-10 bg-neutral text-neutral-content">
     <div>
     <span className="footer-title">Services</span> 
@@ -25,6 +25,7 @@ export default function Footer() {
     <a className="link link-hover">Cookie policy</a>
     </div>
     </footer>
-    </>
+      
+    </div>
   )
 }
