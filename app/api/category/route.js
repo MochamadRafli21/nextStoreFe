@@ -1,8 +1,13 @@
 import prisma from "@/prisma/prismaClient";
 import { NextResponse } from 'next/server';
 import { Prisma } from "@prisma/client";
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function GET(request) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
+  const collection = request.nextUrl.searchParams.get('category') || 'category';
+  revalidatePath(path);
+  revalidateTag(collection);
   const {searchParams} = new URL(request.url)
   const isHighlight = searchParams.get('isHighlight')
   let payload = {}
@@ -24,6 +29,10 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
+  const collection = request.nextUrl.searchParams.get('category') || 'category';
+  revalidatePath(path);
+  revalidateTag(collection);
   const res = await request.json()
   if(!res.name){
     return new Response("Category Name Cant be empty!", {status:400})

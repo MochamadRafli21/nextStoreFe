@@ -7,7 +7,13 @@ export async function getCategory(query) {
     }
   }
   try{
-    const res = await fetch(url);
+    const res = await fetch(url,{
+        next:{
+          revalidated:60, 
+          tags:['category'],
+          url:['/admin/category','/']
+        }
+    });
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -22,7 +28,14 @@ export async function getCategoryDetail(id) {
     throw new Error("Id is missing")
   }
   try{
-    const res = await fetch(`${process.env.HOST}api/category/${id}`);
+    const res = await fetch(`${process.env.HOST}api/category/${id}`,
+      {
+        next:{
+          revalidated:60, 
+          tags:['category'],
+          url:['/admin/category','/admin/category/'+id, '/']
+        }
+      });
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -38,7 +51,12 @@ export async function postCategory(payload) {
       `/api/category`,
       {
         method:"POST",
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        next:{
+          revalidated:60, 
+          tags:['category'],
+          url:['/admin/category','/']
+        }
       }
     );
     if (!res.ok) {
@@ -57,7 +75,12 @@ export async function deleteCategory(id) {
   try{
     const res = await fetch(`/api/category/${id}`,
       {
-        method: "DELETE"
+        method: "DELETE",
+        next:{
+          revalidated:60, 
+          tags:['category'],
+          url:['/admin/category','/admin/category/'+id, '/']
+        }
       }
     );
     if (!res.ok) {
@@ -73,7 +96,12 @@ export async function updateCategory(id, body){
   try{
     const res = await fetch(`/api/category/${parseInt(id)}`, {
       method: 'PUT',
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
+      next:{
+          revalidated:60, 
+          tags:['category'],
+          url:['/admin/category','/admin/category/'+id, '/']
+        }
     });
     if (!res.ok) {
     throw new Error('Failed to fetch data');

@@ -3,6 +3,10 @@ import { NextResponse } from 'next/server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function GET() {
+  const path = request.nextUrl.searchParams.get('path') || 'admin';
+  const collection = request.nextUrl.searchParams.get('banner') || 'banner';
+  revalidatePath(path);
+  revalidateTag(collection);
   const banner = await prisma.banner.findMany({})
   return NextResponse.json({ data: banner });
 }
