@@ -1,7 +1,12 @@
 import prisma from "@/prisma/prismaClient";
 import { NextResponse } from 'next/server';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
-export async function DELETE(_,{params}) {
+export async function DELETE(request,{params}) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/group';
+  const collection = request.nextUrl.searchParams.get('group') || 'group';
+  revalidatePath(path);
+  revalidateTag(collection);
   const id = parseInt(params.id)
   const data = await prisma.group.delete({
     where: {
@@ -11,7 +16,12 @@ export async function DELETE(_,{params}) {
   return NextResponse.json({ data });
 }
 
-export async function GET(_,{params}) {
+export async function GET(request,{params}) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/group';
+  const collection = request.nextUrl.searchParams.get('group') || 'group';
+  revalidatePath(path);
+  revalidateTag(collection);
+  revalidatePath('/api/group/'+params.id);
   const id = parseInt(params.id)
   const data = await prisma.group.findFirst({
     where: {
@@ -25,13 +35,18 @@ export async function GET(_,{params}) {
 }
 
 export async function PUT(request, {params}) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
+  const collection = request.nextUrl.searchParams.get('group') || 'group';
+  revalidatePath(path);
+  revalidatePath('/api/group/'+params.id);
+  revalidateTag(collection);
   const id = parseInt(params.id)
   const res = await request.json()
   let data ={}
   if(res.category){
   const ids = await res.category.map((cId)=>{
     if(cId){
-      return {id: cId}
+      return {id: cId.id? cId.id : cId}
     }
   })
   if(!ids){
@@ -40,7 +55,7 @@ export async function PUT(request, {params}) {
     data = {
       ...res,
       category:{
-        connect:ids
+        connect:[...ids]
       }
     }
   }else{
