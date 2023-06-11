@@ -2,7 +2,7 @@ import prisma from "@/prisma/prismaClient";
 import { NextResponse } from 'next/server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-export async function GET() {
+export async function GET(request) {
   const path = request.nextUrl.searchParams.get('path') || 'admin';
   const collection = request.nextUrl.searchParams.get('banner') || 'banner';
   revalidatePath(path);
