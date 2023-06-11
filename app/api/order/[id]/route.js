@@ -1,7 +1,12 @@
 import prisma from "@/prisma/prismaClient";
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
-export async function DELETE(_,{params}) {
+export async function DELETE(request,{params}) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/order';
+  const collection = request.nextUrl.searchParams.get('order') || 'order';
+  revalidatePath(path);
+  revalidateTag(collection);
   const id = parseInt(params.id)
   const data = await prisma.order.delete({
     where: {
@@ -11,7 +16,12 @@ export async function DELETE(_,{params}) {
   return NextResponse.json({ data });
 }
 
-export async function GET(_,{params}) {
+export async function GET(request,{params}) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/order';
+  const collection = request.nextUrl.searchParams.get('order') || 'order';
+  revalidatePath(path);
+  revalidatePath('/api/order/'+params.id);
+  revalidateTag(collection);
   const id = parseInt(params.id)
   const data = await prisma.order.findFirst({
     where: {
@@ -22,6 +32,11 @@ export async function GET(_,{params}) {
 }
 
 export async function PUT(request, {params}) {
+  const path = request.nextUrl.searchParams.get('path') || '/admin/order';
+  const collection = request.nextUrl.searchParams.get('order') || 'order';
+  revalidatePath(path);
+  revalidatePath('/api/order/'+params.id);
+  revalidateTag(collection);
   const id = parseInt(params.id)
   const res = await request.json()
   if(!res.product){

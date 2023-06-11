@@ -12,7 +12,15 @@ export async function getProduct(query) {
   }
 
   try{
-    const res = await fetch(url);
+    const res = await fetch(url,
+      {
+        next:{
+          revalidate:60,
+          tags:['product'],
+          url:['/admin/product', '/']
+        }
+      }
+    );
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -24,7 +32,6 @@ export async function getProduct(query) {
 
 export async function getProductServer(query) {
   let url = `${process.env.HOST}api/product`
-  console.log(query)
   if(query){
     const {q , category}=query
     if(q){
@@ -36,7 +43,15 @@ export async function getProductServer(query) {
   }
 
   try{
-    const res = await fetch(url);
+    const res = await fetch(url,
+      {
+        next:{
+          revalidate:60,
+          tags:['product'],
+          url:['/admin/product', '/']
+        }
+      }
+    );
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -48,7 +63,15 @@ export async function getProductServer(query) {
 
 export async function getProductDetail(id) {
   try{
-    const res = await fetch(`${process.env.HOST}api/product/${parseInt(id)}`);
+    const res = await fetch(`${process.env.HOST}api/product/${parseInt(id)}`,
+      {
+        next:{
+          revalidate:60,
+          tags:['product'],
+          url:['/admin/product', '/']
+        }
+      }
+    );
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -64,7 +87,12 @@ export async function postProduct(payload) {
       `/api/product`,
       {
         method:"POST",
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        next:{
+          revalidate:60,
+          tags:['product'],
+          url:['/admin/product', '/']
+        }
       }
     );
     if (!res.ok) {
@@ -83,7 +111,12 @@ export async function deleteProduct(id) {
   try{
     const res = await fetch(`/api/product/${id}`,
       {
-        method: "DELETE"
+        method: "DELETE",
+        next:{
+          revalidate:60,
+          tags:['product'],
+          url:['/admin/product', '/']
+        }
       }
     );
     if (!res.ok) {

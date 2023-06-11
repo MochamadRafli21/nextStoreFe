@@ -4,7 +4,12 @@ export async function postOrder(payload) {
       `/api/order`,
       {
         method:"POST",
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        next:{
+          revalidate:60,
+          tags:['order'],
+          url:['/admin/order', '/']
+        }
       }
     );
     if (!res.ok) {
@@ -20,7 +25,14 @@ export async function getOrder() {
   let url = `${process.env.HOST}api/order`
 
   try{
-    const res = await fetch(url);
+    const res = await fetch(url,
+      {
+        next:{
+          revalidate:60,
+          tags:['order'],
+          url:['/admin/order', '/']
+        }
+      });
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -33,7 +45,15 @@ export async function getOrder() {
 
 export async function getOrderDetail(id) {
   try{
-    const res = await fetch(`${process.env.HOST}api/order/${parseInt(id)}`);
+    const res = await fetch(`${process.env.HOST}api/order/${parseInt(id)}`,
+      {
+        next:{
+          revalidate:60,
+          tags:['order'],
+          url:['/admin/order', '/']
+        }
+      }
+    );
     if (!res.ok) {
     throw new Error('Failed to fetch data');
     }
@@ -47,7 +67,12 @@ export async function updateOrder(id, body){
   try{
     const res = await fetch(`/api/order/${parseInt(id)}`, {
       method: 'PUT',
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
+      next:{
+          revalidate:60,
+          tags:['order'],
+          url:['/admin/order', '/']
+        }
     });
     if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -69,7 +94,12 @@ export async function updateOrderStatus(id, body){
   try{
     const res = await fetch(`/api/order/${parseInt(id)}/status`, {
       method: 'PUT',
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+        next:{
+          revalidate:60,
+          tags:['order'],
+          url:['/admin/order', '/']
+        }
     });
     if (!res.ok) {
     throw new Error('Failed to fetch data');
