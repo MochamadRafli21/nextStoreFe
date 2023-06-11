@@ -1,6 +1,14 @@
 export async function getBanner() {
   try{
-    const res = await fetch(`${process.env.HOST}api/banner`);
+    const res = await fetch(`${process.env.HOST}api/banner`,
+      {
+        next:{
+          revalidate:60,
+          tags:['banner'],
+          url:['/admin/banner', '/']
+        }
+      }
+    );
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -16,7 +24,12 @@ export async function postBanner(payload) {
       `/api/banner`,
       {
         method:"POST",
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        next:{
+          revalidated:60, 
+          tags:['banner'],
+          url:['/admin/banner','/']
+        }
       }
     );
     if (!res.ok) {
@@ -35,7 +48,12 @@ export async function deleteBanner(id) {
   try{
     const res = await fetch(`/api/banner/${id}`,
       {
-        method: "DELETE"
+        method: "DELETE",
+        next:{
+          revalidate:60,
+          tags:['banner'],
+          url:['/admin/banner','/']
+        }
       }
     );
     if (!res.ok) {

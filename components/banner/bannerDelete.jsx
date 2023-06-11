@@ -11,7 +11,7 @@ export default function BannerDelete(props) {
     if(!res.ok){
       throw new Error("Tidak dapat menghapus gambar")
     }
-    router.push('/admin/#banner')
+    router.push('/admin/banner')
     router.refresh()
   }
   return (
