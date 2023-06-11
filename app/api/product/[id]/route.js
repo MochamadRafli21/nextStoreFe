@@ -2,7 +2,7 @@ import prisma from "@/prisma/prismaClient";
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { NextResponse } from 'next/server';
 
-export async function DELETE(_,{params}) {
+export async function DELETE(request,{params}) {
   const path = request.nextUrl.searchParams.get('path') || '/admin/product';
   const collection = request.nextUrl.searchParams.get('product') || 'product';
   revalidatePath(path);
@@ -16,7 +16,7 @@ export async function DELETE(_,{params}) {
   return NextResponse.json({ data });
 }
 
-export async function GET(_,{params}) {
+export async function GET(request,{params}) {
   const path = request.nextUrl.searchParams.get('path') || '/admin/product';
   const collection = request.nextUrl.searchParams.get('product') || 'product';
   revalidatePath(path);
