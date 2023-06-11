@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import prisma from "@/prisma/prismaClient";
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function DELETE(request,{params}) {
