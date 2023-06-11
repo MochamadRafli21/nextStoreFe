@@ -42,7 +42,7 @@ export default function MultySelect({title,options,selectedOptions,isDisabled,se
   return (
     <>
     <div onClick={()=>{setHideList(true)}} className={`opacity-0 top-0 left-0 w-full h-full fixed ${hideList?'hidden':''}`}></div>
-    <div className='h-12'>
+    <div className='bg-base-200 rounded'>
     {title?
       <label className="label">
       <span className="label-text">{title}</span>
@@ -78,7 +78,7 @@ export default function MultySelect({title,options,selectedOptions,isDisabled,se
     >
     </input>
     </div>
-    <ul  className={`menu ease-in-out delay-75 bg-base-200 z-10 ${hideList? 'hidden' :'' }`}>
+    <ul  className={`menu ease-in-out delay-75 bg-base-200 z-10 w-full ${hideList? 'hidden' :'absolute' }`}>
     {!selectedOptions?
       <li key={'0'} className='selected disabled'>Pilih opsi</li>
       :
