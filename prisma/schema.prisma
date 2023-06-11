@@ -7,7 +7,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DB_URL") 
+  url = env("DB_PRISMA_URL")
+  directUrl = env("DB_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("DB_URL_NON_POOLING") // used for migrations
 }
 
 model Product {
