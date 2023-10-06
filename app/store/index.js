@@ -25,11 +25,6 @@ export async function postBanner(payload) {
       {
         method:"POST",
         body: JSON.stringify(payload),
-        next:{
-          revalidated:60, 
-          tags:['banner'],
-          url:['/admin/banner','/']
-        }
       }
     );
     if (!res.ok) {

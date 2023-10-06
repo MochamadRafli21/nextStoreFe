@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <>
     <main className="min-h-screen">
-      <Navbar/>
+    <Navbar/>
     <div className="w-full flex flex-col items-center">
     <div className="w-full max-w-screen-lg">
     <Carousel

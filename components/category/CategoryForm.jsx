@@ -51,7 +51,6 @@ export default function CategoryForm({resP, data, isEdit }) {
         throw new Error("Failed to add banner")
       }
       router.push('/admin/category')
-      router.refresh('')
 
     }else{
     if(payload){
@@ -61,7 +60,6 @@ export default function CategoryForm({resP, data, isEdit }) {
           throw new Error("Failed to add banner")
         }
         router.push('/admin/category')
-        router.refresh('')
       } catch (error) {
         console.log(error)  
       }

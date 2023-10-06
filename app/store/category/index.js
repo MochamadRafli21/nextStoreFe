@@ -10,12 +10,10 @@ export async function getCategory(query) {
     const res = await fetch(url,{
         next:{
           revalidated:60, 
-          tags:['category'],
-          url:['/admin/category','/']
         }
     });
     if (!res.ok) {
-    throw new Error('Failed to fetch data');
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   }catch(error){
@@ -32,8 +30,6 @@ export async function getCategoryDetail(id) {
       {
         next:{
           revalidated:60, 
-          tags:['category'],
-          url:['/admin/category','/admin/category/'+id, '/']
         }
       });
     if (!res.ok) {
@@ -54,8 +50,6 @@ export async function postCategory(payload) {
         body: JSON.stringify(payload),
         next:{
           revalidated:60, 
-          tags:['category'],
-          url:['/admin/category','/']
         }
       }
     );
@@ -78,8 +72,6 @@ export async function deleteCategory(id) {
         method: "DELETE",
         next:{
           revalidated:60, 
-          tags:['category'],
-          url:['/admin/category','/admin/category/'+id, '/']
         }
       }
     );
@@ -99,8 +91,6 @@ export async function updateCategory(id, body){
       body: JSON.stringify(body),
       next:{
           revalidated:60, 
-          tags:['category'],
-          url:['/admin/category','/admin/category/'+id, '/']
         }
     });
     if (!res.ok) {

@@ -7,11 +7,9 @@ export default function BannerDelete(props) {
   const router = useRouter()
   async function submitDelete(){
     const res = await deleteBanner(id)
-    console.log(res)
     if(!res.ok){
       throw new Error("Tidak dapat menghapus gambar")
     }
-    router.push('/admin/banner')
     router.refresh()
   }
   return (

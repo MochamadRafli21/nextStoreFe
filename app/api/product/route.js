@@ -3,10 +3,6 @@ import { NextResponse } from 'next/server';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 export async function GET(request) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/product';
-  const collection = request.nextUrl.searchParams.get('product') || 'product';
-  revalidatePath(path);
-  revalidateTag(collection);
   const {searchParams} = new URL(request.url)
   const catName = searchParams.get('category')
   const pName = searchParams.get('q')
@@ -43,10 +39,7 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/product';
-  const collection = request.nextUrl.searchParams.get('product') || 'product';
-  revalidatePath(path);
-  revalidateTag(collection);
+  revalidatePath('/admin/product')
   const res = await request.json()
   if(!res.name){
     return new Response("Product Name Cant be empty!", {status:400})

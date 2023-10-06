@@ -11,7 +11,6 @@ export default function GroupDelete(props) {
       throw new Error("Tidak dapat menghapus kategori")
     }
     router.push('/admin/group')
-    router.refresh()
   }
   return (
       <>

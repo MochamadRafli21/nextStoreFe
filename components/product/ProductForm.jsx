@@ -22,8 +22,7 @@ export default function CategoryForm() {
         if(!res.ok){
           throw new Error("Failed to add banner")
         }
-        router.push('/admin')
-        router.refresh('')
+        router.push('/admin/product')
       } catch (error) {
         console.log(error)  
       }

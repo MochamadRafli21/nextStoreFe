@@ -28,7 +28,7 @@ export default function GroupForm({resC, data, isEdit}) {
             throw new Error("Failed to update group")
           }
           router.push('/admin/group')
-          router.refresh('')
+          router.refresh()
         } catch (error) {
           console.log(error)  
         }
@@ -40,7 +40,7 @@ export default function GroupForm({resC, data, isEdit}) {
             throw new Error("Failed to create group")
           }
           router.push('/admin/group')
-          router.refresh('')
+          router.refresh()
         } catch (error) {
           console.log(error)  
         }

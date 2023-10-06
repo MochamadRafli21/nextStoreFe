@@ -1,12 +1,9 @@
 import prisma from "@/prisma/prismaClient";
 import { NextResponse } from 'next/server';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
-export async function DELETE(request,{params}) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/group';
-  const collection = request.nextUrl.searchParams.get('group') || 'group';
-  revalidatePath(path);
-  revalidateTag(collection);
+export async function DELETE(_,{params}) {
+  revalidatePath('/admin/group');
   const id = parseInt(params.id)
   const data = await prisma.group.delete({
     where: {
@@ -16,12 +13,8 @@ export async function DELETE(request,{params}) {
   return NextResponse.json({ data });
 }
 
-export async function GET(request,{params}) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/group';
-  const collection = request.nextUrl.searchParams.get('group') || 'group';
-  revalidatePath(path);
-  revalidateTag(collection);
-  revalidatePath('/api/group/'+params.id);
+export async function GET(_,{params}) {
+  revalidatePath('/admin/group');
   const id = parseInt(params.id)
   const data = await prisma.group.findFirst({
     where: {
@@ -35,11 +28,7 @@ export async function GET(request,{params}) {
 }
 
 export async function PUT(request, {params}) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
-  const collection = request.nextUrl.searchParams.get('group') || 'group';
-  revalidatePath(path);
-  revalidatePath('/api/group/'+params.id);
-  revalidateTag(collection);
+  revalidatePath('/admin/group');
   const id = parseInt(params.id)
   const res = await request.json()
   let data ={}

@@ -1,12 +1,9 @@
 import prisma from "@/prisma/prismaClient";
 import { NextResponse } from 'next/server';
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
-export async function DELETE(request,{params}) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
-  const collection = request.nextUrl.searchParams.get('category') || 'category';
-  revalidatePath(path);
-  revalidateTag(collection);
+export async function DELETE(_,{params}) {
+  revalidatePath('/admin/category');
   const id = parseInt(params.id)
   const data = await prisma.category.delete({
     where: {
@@ -16,12 +13,8 @@ export async function DELETE(request,{params}) {
   return NextResponse.json({ data });
 }
 
-export async function GET(request,{params}) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
-  const collection = request.nextUrl.searchParams.get('category') || 'category';
-  revalidatePath(path);
-  revalidateTag(collection);
-  revalidatePath('/api/category/'+params.id);
+export async function GET(_,{params}) {
+  revalidatePath('/admin/category');
   const id = parseInt(params.id)
   const data = await prisma.category.findFirst({
     where: {
@@ -34,12 +27,8 @@ export async function GET(request,{params}) {
   return NextResponse.json({ data });
 }
 
-export async function PUT(request, {params}) {
-  const path = request.nextUrl.searchParams.get('path') || '/admin/category';
-  const collection = request.nextUrl.searchParams.get('category') || 'category';
-  revalidatePath(path);
-  revalidatePath('/api/category/'+params.id);
-  revalidateTag(collection);
+export async function PUT(_, {params}) {
+  revalidatePath('/admin/category');
   const id = parseInt(params.id)
   const res = await request.json()
   let productList = []

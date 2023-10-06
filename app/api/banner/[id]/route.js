@@ -1,12 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/prisma/prismaClient";
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
-export async function DELETE(request,{params}) {
-  const path = request.nextUrl.searchParams.get('path') || 'admin';
-  const collection = request.nextUrl.searchParams.get('banner') || 'banner';
-  revalidatePath(path);
-  revalidateTag(collection);
+export async function DELETE(_,{params}) {
+  revalidatePath('/admin/banner');
   const id = parseInt(params.id)
   const data = await prisma.banner.delete({
     where: {

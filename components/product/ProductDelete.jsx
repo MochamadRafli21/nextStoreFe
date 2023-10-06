@@ -11,7 +11,7 @@ export default function ProductDelete(props) {
     if(!res){
       throw new Error("Tidak dapat menghapus kategori")
     }
-    router.push('/admin/#product')
+    router.push('/admin/product')
     router.refresh()
   }
   return (
